@@ -1,0 +1,45 @@
+name: headline-reader
+on:
+  workflow_dispatch:
+  schedule: 
+    - cron:  '*, 1, 6, 1 *'
+    - cron:  '*, 1, 20, 1 *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: Install dependencies [pip]
+        run: |
+          python -m pip install pip --upgrade pip
+          pip install -r requirements.txt
+           
+      - name: Pull suggests from Google 
+        run: |
+          python main.py
+          
+      - name: commit
+        run: |
+          # Stage the file, commit and push
+          git config user.email "naca4005@colorado.edu"
+          git config user.name "NatalieRMCastro"
+          git pull
+          git checkout main
+          git add *
+          git commit -m "completed pull for `date +'%m-%d-%H'`" || exit 0
+          git push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
