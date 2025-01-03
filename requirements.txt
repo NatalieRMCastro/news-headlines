@@ -1,0 +1,4 @@
+regex==2024.*  
+beautifulsoup4==4.*  
+requests==2.*  
+pandas==2.*  
