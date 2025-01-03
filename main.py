@@ -9,7 +9,7 @@ def main():
 	''' 2. FUNCTION DEFINITION '''
 	def headline_collector(news_url,tag):
 		user_agent = {'user-agent':'University of Colorado at Boulder, natalie.castro@colorado.edu'}
-    		response = requests.get(news_url, headers=user_agent)
+		response = requests.get(news_url, headers=user_agent)
 
     		if response.status_code == 200:
         		news_text = BeautifulSoup(response.text,'html.parser')
@@ -18,7 +18,7 @@ def main():
 
 
     		else:
-        		return ([])
+			return ([])
         
         
 	def headline_cleaner(headline):
