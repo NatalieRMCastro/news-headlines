@@ -8,17 +8,17 @@ from time import gmtime, strftime
 def main():
 	''' 2. FUNCTION DEFINITION '''
 	def headline_collector(news_url,tag):
-    	user_agent = {'user-agent':'University of Colorado at Boulder, natalie.castro@colorado.edu'}
-    	response = requests.get(news_url, headers=user_agent)
+		user_agent = {'user-agent':'University of Colorado at Boulder, natalie.castro@colorado.edu'}
+    		response = requests.get(news_url, headers=user_agent)
 
-    	if response.status_code == 200:
-        	news_text = BeautifulSoup(response.text,'html.parser')
-        	tags = news_text.find_all(tag)
-        	return(tags)
+    		if response.status_code == 200:
+        		news_text = BeautifulSoup(response.text,'html.parser')
+        		tags = news_text.find_all(tag)
+        		return(tags)
 
 
-    	else:
-        	return ([])
+    		else:
+        		return ([])
         
         
 	def headline_cleaner(headline):
@@ -28,10 +28,10 @@ def main():
   		match_result = re.findall(match_pattern,string_headline)
 
   		if len(match_result) > 0:
-    		return (match_result[0])
+    			return (match_result[0])
 
   		else:
-    		return(None)
+    			return(None)
     
 	''' 3. NEWS VARIABLE CREATION '''
 	websites_and_tags = {
@@ -95,14 +95,14 @@ def main():
   ## Iterating through each news source and collecting the URL information
 	for url in websites:
     ## Setting the tag and the progress statement
-    	current_tag = websites_and_tags[url]
+    		current_tag = websites_and_tags[url]
     
     ## Collecting the headlines from the respective website
-    	headlines = headline_collector(url,current_tag)
+    		headlines = headline_collector(url,current_tag)
 
     ## Structuing the data to a list of dictionaries
-    	scraped_data = {"source":url,"tag":current_tag,"headlines":headlines}
-    	website_data.append(scraped_data)
+    		scraped_data = {"source":url,"tag":current_tag,"headlines":headlines}
+    		website_data.append(scraped_data)
     
 ''' 5. STRUCTURING THE DATA '''
 
